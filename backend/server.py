@@ -206,6 +206,7 @@ async def lookup_barcode(barcode: str):
         if barcode in mock_products:
             product_data = mock_products[barcode]
             product_data["barcode"] = barcode
+            product_data["id"] = str(uuid.uuid4())
             
             # Save to local database for future use
             db.products.insert_one(product_data)
@@ -216,7 +217,8 @@ async def lookup_barcode(barcode: str):
             "barcode": barcode,
             "name": f"Product {barcode}",
             "brand": "Unknown",
-            "category": "other"
+            "category": "other",
+            "id": str(uuid.uuid4())
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
