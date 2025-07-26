@@ -121,7 +121,7 @@
 }
 
 .pwa-install-prompt.hidden {
-  @apply hidden;
+  display: none;
 }
 
 /* Camera styles */
