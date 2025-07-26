@@ -362,27 +362,28 @@ async def get_expiring_notifications():
         
         notifications = []
         for item in expiring_items:
-            expiry_date = datetime.fromisoformat(item["expiry_date"])
-            days_left = (expiry_date - datetime.utcnow()).days
-            
-            if days_left <= 0:
-                message = f"⚠️ {item['name']} has expired!"
-                urgency = "high"
-            elif days_left == 1:
-                message = f"🔥 {item['name']} expires tomorrow!"
-                urgency = "high"
-            else:
-                message = f"⏰ {item['name']} expires in {days_left} days"
-                urgency = "medium"
-            
-            notifications.append({
-                "id": item["id"],
-                "message": message,
-                "urgency": urgency,
-                "item_name": item["name"],
-                "expiry_date": item["expiry_date"],
-                "days_left": days_left
-            })
+            if item.get("expiry_date"):
+                expiry_date = datetime.fromisoformat(item["expiry_date"])
+                days_left = (expiry_date - datetime.utcnow()).days
+                
+                if days_left <= 0:
+                    message = f"⚠️ {item['name']} has expired!"
+                    urgency = "high"
+                elif days_left == 1:
+                    message = f"🔥 {item['name']} expires tomorrow!"
+                    urgency = "high"
+                else:
+                    message = f"⏰ {item['name']} expires in {days_left} days"
+                    urgency = "medium"
+                
+                notifications.append({
+                    "id": item["id"],
+                    "message": message,
+                    "urgency": urgency,
+                    "item_name": item["name"],
+                    "expiry_date": item["expiry_date"],
+                    "days_left": days_left
+                })
         
         return notifications
     except Exception as e:
