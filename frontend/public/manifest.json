@@ -1,0 +1,76 @@
+{
+  "short_name": "SmartKitchen",
+  "name": "SmartKitchen - AI Kitchen Assistant",
+  "description": "Manage your kitchen inventory, reduce waste, and discover recipes with AI-powered suggestions",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0ea5e9",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["lifestyle", "productivity", "utilities"],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Scan Barcode",
+      "short_name": "Scan",
+      "description": "Quickly scan a barcode to add item",
+      "url": "/scan",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Add Item",
+      "short_name": "Add",
+      "description": "Manually add item to inventory",
+      "url": "/add",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "View Recipes",
+      "short_name": "Recipes",
+      "description": "Browse available recipes",
+      "url": "/recipes",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
