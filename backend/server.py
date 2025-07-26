@@ -365,29 +365,38 @@ async def get_expiring_notifications():
         notifications = []
         for item in all_items:
             if item.get("expiry_date"):
-                expiry_date = datetime.fromisoformat(item["expiry_date"])
-                days_left = (expiry_date - datetime.utcnow()).days
-                
-                # Only include items expiring in 3 days or less
-                if days_left <= 3:
-                    if days_left <= 0:
-                        message = f"⚠️ {item['name']} has expired!"
-                        urgency = "high"
-                    elif days_left == 1:
-                        message = f"🔥 {item['name']} expires tomorrow!"
-                        urgency = "high"
+                try:
+                    expiry_str = item["expiry_date"]
+                    if isinstance(expiry_str, str):
+                        expiry_date = datetime.fromisoformat(expiry_str)
                     else:
-                        message = f"⏰ {item['name']} expires in {days_left} days"
-                        urgency = "medium"
+                        expiry_date = expiry_str
                     
-                    notifications.append({
-                        "id": item["id"],
-                        "message": message,
-                        "urgency": urgency,
-                        "item_name": item["name"],
-                        "expiry_date": item["expiry_date"],
-                        "days_left": days_left
-                    })
+                    days_left = (expiry_date - datetime.utcnow()).days
+                    
+                    # Only include items expiring in 3 days or less
+                    if days_left <= 3:
+                        if days_left <= 0:
+                            message = f"⚠️ {item['name']} has expired!"
+                            urgency = "high"
+                        elif days_left == 1:
+                            message = f"🔥 {item['name']} expires tomorrow!"
+                            urgency = "high"
+                        else:
+                            message = f"⏰ {item['name']} expires in {days_left} days"
+                            urgency = "medium"
+                        
+                        notifications.append({
+                            "id": item["id"],
+                            "message": message,
+                            "urgency": urgency,
+                            "item_name": item["name"],
+                            "expiry_date": item["expiry_date"],
+                            "days_left": days_left
+                        })
+                except Exception as e:
+                    print(f"Error processing item {item['name']}: {e}")
+                    continue
         
         return notifications
     except Exception as e:
